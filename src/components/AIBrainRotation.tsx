@@ -1,17 +1,15 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
-// Import all frames
-import frame1 from '@/assets/ai-network/frame-01.png';
-import frame2 from '@/assets/ai-network/frame-02.png';
-import frame3 from '@/assets/ai-network/frame-03.png';
-import frame4 from '@/assets/ai-network/frame-04.png';
-import frame5 from '@/assets/ai-network/frame-05.png';
-import frame6 from '@/assets/ai-network/frame-06.png';
-import frame7 from '@/assets/ai-network/frame-07.png';
-import frame8 from '@/assets/ai-network/frame-08.png';
+// Import all 6 frames (0°, 30°, 60°, 90°, 120°, 150°)
+import frame1 from '@/assets/ai-brain/frame-01.png';
+import frame2 from '@/assets/ai-brain/frame-02.png';
+import frame3 from '@/assets/ai-brain/frame-03.png';
+import frame4 from '@/assets/ai-brain/frame-04.png';
+import frame5 from '@/assets/ai-brain/frame-05.png';
+import frame6 from '@/assets/ai-brain/frame-06.png';
 
-const frames = [frame1, frame2, frame3, frame4, frame5, frame6, frame7, frame8];
+const frames = [frame1, frame2, frame3, frame4, frame5, frame6];
 
 const AIBrainRotation = () => {
   const containerRef = useRef<HTMLDivElement>(null);
