@@ -1,20 +1,19 @@
 import { useRef, useEffect, useState, useCallback } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
-// Import all 12 frames for smooth rotation (every 15 degrees)
-// Order: 0°, 15°, 30°, 45°, 60°, 75°, 90°, 105°, 120°, 135°, 150°, 165°
-import frame01 from '@/assets/ai-brain/frame-01.png';   // 0°
-import frame02 from '@/assets/ai-brain/frame-01b.png';  // 15°
-import frame03 from '@/assets/ai-brain/frame-02.png';   // 30°
-import frame04 from '@/assets/ai-brain/frame-02b.png';  // 45°
-import frame05 from '@/assets/ai-brain/frame-03.png';   // 60°
-import frame06 from '@/assets/ai-brain/frame-03b.png';  // 75°
-import frame07 from '@/assets/ai-brain/frame-04.png';   // 90°
-import frame08 from '@/assets/ai-brain/frame-04b.png';  // 105°
-import frame09 from '@/assets/ai-brain/frame-05.png';   // 120°
-import frame10 from '@/assets/ai-brain/frame-05b.png';  // 135°
-import frame11 from '@/assets/ai-brain/frame-06.png';   // 150°
-import frame12 from '@/assets/ai-brain/frame-06b.png';  // 165°
+// Import all 12 frames for smooth rotation
+import frame01 from '@/assets/ai-brain/frame-01.png';
+import frame02 from '@/assets/ai-brain/frame-01b.png';
+import frame03 from '@/assets/ai-brain/frame-02.png';
+import frame04 from '@/assets/ai-brain/frame-02b.png';
+import frame05 from '@/assets/ai-brain/frame-03.png';
+import frame06 from '@/assets/ai-brain/frame-03b.png';
+import frame07 from '@/assets/ai-brain/frame-04.png';
+import frame08 from '@/assets/ai-brain/frame-04b.png';
+import frame09 from '@/assets/ai-brain/frame-05.png';
+import frame10 from '@/assets/ai-brain/frame-05b.png';
+import frame11 from '@/assets/ai-brain/frame-06.png';
+import frame12 from '@/assets/ai-brain/frame-06b.png';
 
 const frameSources = [
   frame01, frame02, frame03, frame04, frame05, frame06,
@@ -29,12 +28,13 @@ const AIBrainRotation = () => {
   const currentFrameRef = useRef(0);
   const rafRef = useRef<number>();
   
+  // Track scroll from when this section starts to when it ends
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
   });
 
-  // Preload all images for smooth playback
+  // Preload all images
   useEffect(() => {
     const loadedImages: HTMLImageElement[] = [];
     let loadedCount = 0;
@@ -53,71 +53,56 @@ const AIBrainRotation = () => {
     });
 
     return () => {
-      if (rafRef.current) {
-        cancelAnimationFrame(rafRef.current);
-      }
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
   }, []);
 
-  // Draw frame to canvas with high quality
+  // Draw frame to canvas
   const drawFrame = useCallback((frameIndex: number) => {
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext('2d');
     if (!canvas || !ctx || !images[frameIndex]) return;
 
-    // Enable high quality rendering
     ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = 'high';
-
-    // Clear with transparent background
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
-    // Draw the image centered and scaled to fit
     const img = images[frameIndex];
-    const scale = Math.min(canvas.width / img.width, canvas.height / img.height) * 0.95;
+    const scale = Math.min(canvas.width / img.width, canvas.height / img.height) * 0.9;
     const x = (canvas.width - img.width * scale) / 2;
     const y = (canvas.height - img.height * scale) / 2;
     
     ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
   }, [images]);
 
-  // Smooth scroll-driven animation using requestAnimationFrame
+  // Scroll-driven frame animation
   useEffect(() => {
     if (!imagesLoaded) return;
 
     const unsubscribe = scrollYProgress.on("change", (latest) => {
-      // Map scroll progress to frame index (0 to frameCount-1)
+      // Use the middle 80% of scroll for rotation (10% fade in, 80% rotate, 10% fade out)
+      const rotationProgress = Math.max(0, Math.min(1, (latest - 0.05) / 0.9));
       const frameIndex = Math.min(
-        Math.round(latest * (frameSources.length - 1)),
+        Math.round(rotationProgress * (frameSources.length - 1)),
         frameSources.length - 1
       );
       
-      // Only redraw if frame changed
-      if (frameIndex !== currentFrameRef.current) {
+      if (frameIndex !== currentFrameRef.current && frameIndex >= 0) {
         currentFrameRef.current = frameIndex;
-        
-        // Use requestAnimationFrame for smooth rendering
-        if (rafRef.current) {
-          cancelAnimationFrame(rafRef.current);
-        }
-        rafRef.current = requestAnimationFrame(() => {
-          drawFrame(frameIndex);
-        });
+        if (rafRef.current) cancelAnimationFrame(rafRef.current);
+        rafRef.current = requestAnimationFrame(() => drawFrame(frameIndex));
       }
     });
 
-    // Draw initial frame
     requestAnimationFrame(() => drawFrame(0));
 
     return () => {
       unsubscribe();
-      if (rafRef.current) {
-        cancelAnimationFrame(rafRef.current);
-      }
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
   }, [imagesLoaded, scrollYProgress, drawFrame]);
 
-  // Handle canvas resize with proper DPI scaling
+  // Canvas resize handler
   useEffect(() => {
     const handleResize = () => {
       const canvas = canvasRef.current;
@@ -126,149 +111,115 @@ const AIBrainRotation = () => {
       const container = canvas.parentElement;
       if (!container) return;
       
-      // Get container dimensions
       const rect = container.getBoundingClientRect();
       const size = Math.min(rect.width, rect.height);
-      
-      // Scale for retina displays
       const dpr = window.devicePixelRatio || 1;
+      
       canvas.width = size * dpr;
       canvas.height = size * dpr;
       canvas.style.width = `${size}px`;
       canvas.style.height = `${size}px`;
       
-      // Scale context for retina
-      const ctx = canvas.getContext('2d');
-      if (ctx) {
-        ctx.scale(dpr, dpr);
-        canvas.width = size * dpr;
-        canvas.height = size * dpr;
-      }
-      
-      // Redraw current frame
       if (imagesLoaded) {
         requestAnimationFrame(() => drawFrame(currentFrameRef.current));
       }
     };
 
-    // Initial setup
-    setTimeout(handleResize, 100);
-    
+    setTimeout(handleResize, 50);
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, [imagesLoaded, drawFrame]);
 
-  // Scale transform for zoom effect
-  const scale = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.8, 1.15, 1.15, 0.9]);
+  // FADE IN immediately at start (first 5% of scroll)
+  const brainOpacity = useTransform(scrollYProgress, [0, 0.05, 0.92, 1], [0, 1, 1, 0]);
   
-  // Y position for subtle parallax
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '-10%']);
+  // Scale effect during rotation
+  const scale = useTransform(scrollYProgress, [0, 0.1, 0.5, 0.9, 1], [0.85, 1, 1.1, 1, 0.9]);
   
-  // Text reveals at different scroll points
-  const textOpacity1 = useTransform(scrollYProgress, [0.05, 0.15, 0.25], [0, 1, 0]);
-  const textY1 = useTransform(scrollYProgress, [0.05, 0.15, 0.25], [30, 0, -30]);
+  // Subtle Y movement
+  const y = useTransform(scrollYProgress, [0, 0.5, 1], ['5%', '0%', '-5%']);
   
-  const textOpacity2 = useTransform(scrollYProgress, [0.4, 0.5, 0.6], [0, 1, 0]);
-  const textY2 = useTransform(scrollYProgress, [0.4, 0.5, 0.6], [30, 0, -30]);
-  
-  const textOpacity3 = useTransform(scrollYProgress, [0.75, 0.85, 1], [0, 1, 1]);
-  const textY3 = useTransform(scrollYProgress, [0.75, 0.85, 1], [30, 0, 0]);
+  // Glow intensity
+  const glowOpacity = useTransform(scrollYProgress, [0, 0.1, 0.5, 0.9, 1], [0, 0.2, 0.3, 0.2, 0]);
 
-  // Glow intensity based on scroll
-  const glowOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.1, 0.25, 0.1]);
+  // Text reveals
+  const textOpacity1 = useTransform(scrollYProgress, [0.1, 0.2, 0.35], [0, 1, 0]);
+  const textY1 = useTransform(scrollYProgress, [0.1, 0.2, 0.35], [20, 0, -20]);
+  
+  const textOpacity2 = useTransform(scrollYProgress, [0.4, 0.5, 0.65], [0, 1, 0]);
+  const textY2 = useTransform(scrollYProgress, [0.4, 0.5, 0.65], [20, 0, -20]);
+  
+  const textOpacity3 = useTransform(scrollYProgress, [0.7, 0.8, 0.92], [0, 1, 0]);
+  const textY3 = useTransform(scrollYProgress, [0.7, 0.8, 0.92], [20, 0, -20]);
 
   return (
     <section 
       ref={containerRef}
-      className="relative h-[250vh]"
+      className="relative h-[200vh]"
     >
+      {/* Sticky container that stays in view */}
       <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
-        {/* Pure black background for seamless blend */}
-        <div className="absolute inset-0 bg-[#0a0a0a]" />
+        {/* Background matching site theme */}
+        <div className="absolute inset-0 bg-background" />
         
-        {/* Animated glow behind brain */}
+        {/* Animated glow */}
         <motion.div 
-          style={{ opacity: glowOpacity, scale }}
-          className="absolute w-[400px] h-[400px] md:w-[600px] md:h-[600px] bg-cyan-500/20 rounded-full blur-[100px]"
-        />
-        <motion.div 
-          style={{ opacity: glowOpacity, scale }}
-          className="absolute w-[300px] h-[300px] md:w-[400px] md:h-[400px] bg-blue-500/15 rounded-full blur-[80px]"
+          style={{ opacity: glowOpacity }}
+          className="absolute w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px]"
         />
 
-        {/* Canvas container with smooth transforms */}
+        {/* Brain canvas with fade and scale */}
         <motion.div 
-          style={{ scale, y }}
-          className="relative w-[280px] h-[280px] md:w-[420px] md:h-[420px] lg:w-[520px] lg:h-[520px] flex items-center justify-center"
+          style={{ opacity: brainOpacity, scale, y }}
+          className="relative w-[300px] h-[300px] md:w-[450px] md:h-[450px] lg:w-[550px] lg:h-[550px] flex items-center justify-center"
         >
           <canvas 
             ref={canvasRef}
             className="w-full h-full"
-            style={{ 
-              imageRendering: 'auto',
-            }}
           />
           
-          {/* Loading state */}
           {!imagesLoaded && (
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-10 h-10 border-2 border-cyan-500/50 border-t-cyan-500 rounded-full animate-spin" />
+              <div className="w-8 h-8 border-2 border-primary/50 border-t-primary rounded-full animate-spin" />
             </div>
           )}
         </motion.div>
 
-        {/* Text overlays with smooth animations */}
+        {/* Text overlays */}
         <motion.div 
           style={{ opacity: textOpacity1, y: textY1 }}
-          className="absolute top-[20%] left-4 md:left-12 lg:left-24 max-w-[200px] md:max-w-xs"
+          className="absolute top-[22%] left-4 md:left-16 lg:left-28 max-w-[180px] md:max-w-xs"
         >
           <h3 className="text-lg md:text-2xl lg:text-3xl font-bold text-gradient">
             Machine Learning
           </h3>
-          <p className="text-muted-foreground mt-2 text-xs md:text-sm">
+          <p className="text-muted-foreground mt-1.5 text-xs md:text-sm">
             Prediktiva modeller och intelligent dataanalys
           </p>
         </motion.div>
 
         <motion.div 
           style={{ opacity: textOpacity2, y: textY2 }}
-          className="absolute top-[25%] right-4 md:right-12 lg:right-24 max-w-[200px] md:max-w-xs text-right"
+          className="absolute top-[22%] right-4 md:right-16 lg:right-28 max-w-[180px] md:max-w-xs text-right"
         >
           <h3 className="text-lg md:text-2xl lg:text-3xl font-bold text-gradient">
             Full-Stack
           </h3>
-          <p className="text-muted-foreground mt-2 text-xs md:text-sm">
+          <p className="text-muted-foreground mt-1.5 text-xs md:text-sm">
             React, Python, Django & Supabase
           </p>
         </motion.div>
 
         <motion.div 
           style={{ opacity: textOpacity3, y: textY3 }}
-          className="absolute bottom-[15%] left-1/2 -translate-x-1/2 text-center"
+          className="absolute bottom-[18%] left-1/2 -translate-x-1/2 text-center"
         >
-          <h3 className="text-lg md:text-2xl lg:text-4xl font-bold text-gradient">
+          <h3 className="text-lg md:text-2xl lg:text-3xl font-bold text-gradient">
             End-to-End Solutions
           </h3>
-          <p className="text-muted-foreground mt-2 text-xs md:text-sm max-w-md">
+          <p className="text-muted-foreground mt-1.5 text-xs md:text-sm">
             Från idé till produktion
           </p>
-        </motion.div>
-
-        {/* Scroll indicator */}
-        <motion.div 
-          style={{ opacity: useTransform(scrollYProgress, [0, 0.08], [1, 0]) }}
-          className="absolute bottom-6 left-1/2 -translate-x-1/2"
-        >
-          <motion.div
-            animate={{ y: [0, 6, 0] }}
-            transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
-            className="flex flex-col items-center gap-1.5 text-muted-foreground/60"
-          >
-            <span className="text-[10px] tracking-widest uppercase">Scrolla</span>
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-            </svg>
-          </motion.div>
         </motion.div>
       </div>
     </section>

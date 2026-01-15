@@ -18,9 +18,9 @@ const HeroSection = () => {
   return (
     <section 
       ref={containerRef}
-      className="relative h-[200vh]"
+      className="relative h-screen"
     >
-      <div className="sticky top-0 h-screen flex flex-col items-center justify-center overflow-hidden">
+      <div className="h-full flex flex-col items-center justify-center overflow-hidden">
         {/* Background gradient */}
         <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-secondary/20" />
         
