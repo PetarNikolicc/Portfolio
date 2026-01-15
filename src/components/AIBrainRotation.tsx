@@ -1,7 +1,7 @@
-import { useRef, useEffect, useState, useCallback } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
 
-// Import all 12 frames for smooth rotation
+// 12 frames (15° steps)
 import frame01 from '@/assets/ai-brain/frame-01.png';
 import frame02 from '@/assets/ai-brain/frame-01b.png';
 import frame03 from '@/assets/ai-brain/frame-02.png';
@@ -16,168 +16,187 @@ import frame11 from '@/assets/ai-brain/frame-06.png';
 import frame12 from '@/assets/ai-brain/frame-06b.png';
 
 const frameSources = [
-  frame01, frame02, frame03, frame04, frame05, frame06,
-  frame07, frame08, frame09, frame10, frame11, frame12
+  frame01,
+  frame02,
+  frame03,
+  frame04,
+  frame05,
+  frame06,
+  frame07,
+  frame08,
+  frame09,
+  frame10,
+  frame11,
+  frame12,
 ];
+
+function clamp01(n: number) {
+  return Math.max(0, Math.min(1, n));
+}
 
 const AIBrainRotation = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
   const [images, setImages] = useState<HTMLImageElement[]>([]);
   const [imagesLoaded, setImagesLoaded] = useState(false);
-  const currentFrameRef = useRef(0);
-  const rafRef = useRef<number>();
-  
-  // Track scroll from when this section starts to when it ends
+  const rafRef = useRef<number | null>(null);
+  const lastDrawnRef = useRef({ a: 0, b: 0, t: 0 });
+
+  // Start progress as soon as this section ENTERS the viewport (right after hero)
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end end"]
+    offset: ['start end', 'end start'],
   });
 
-  // Preload all images
-  useEffect(() => {
-    const loadedImages: HTMLImageElement[] = [];
-    let loadedCount = 0;
+  // Smooth the scroll progress (reduces fast/jittery jumps)
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 140,
+    damping: 34,
+    mass: 0.6,
+  });
 
-    frameSources.forEach((src, index) => {
+  // Preload frames
+  useEffect(() => {
+    const loaded: HTMLImageElement[] = [];
+    let count = 0;
+
+    frameSources.forEach((src, i) => {
       const img = new Image();
+      img.decoding = 'async';
       img.src = src;
       img.onload = () => {
-        loadedImages[index] = img;
-        loadedCount++;
-        if (loadedCount === frameSources.length) {
-          setImages(loadedImages);
+        loaded[i] = img;
+        count += 1;
+        if (count === frameSources.length) {
+          setImages(loaded);
           setImagesLoaded(true);
         }
       };
     });
-
-    return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
   }, []);
 
-  // Draw frame to canvas
-  const drawFrame = useCallback((frameIndex: number) => {
-    const canvas = canvasRef.current;
-    const ctx = canvas?.getContext('2d');
-    if (!canvas || !ctx || !images[frameIndex]) return;
+  const draw = useCallback(
+    (aIndex: number, bIndex: number, mix: number) => {
+      const canvas = canvasRef.current;
+      const ctx = canvas?.getContext('2d');
+      if (!canvas || !ctx) return;
+      const a = images[aIndex];
+      const b = images[bIndex];
+      if (!a || !b) return;
 
-    ctx.imageSmoothingEnabled = true;
-    ctx.imageSmoothingQuality = 'high';
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
-    const img = images[frameIndex];
-    const scale = Math.min(canvas.width / img.width, canvas.height / img.height) * 0.9;
-    const x = (canvas.width - img.width * scale) / 2;
-    const y = (canvas.height - img.height * scale) / 2;
-    
-    ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
-  }, [images]);
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Scroll-driven frame animation
-  useEffect(() => {
-    if (!imagesLoaded) return;
+      // Draw both images in the same position/scale for a smooth blend
+      const scale =
+        Math.min(canvas.width / a.width, canvas.height / a.height) * 0.92;
+      const x = (canvas.width - a.width * scale) / 2;
+      const y = (canvas.height - a.height * scale) / 2;
 
-    const unsubscribe = scrollYProgress.on("change", (latest) => {
-      // Use the middle 80% of scroll for rotation (10% fade in, 80% rotate, 10% fade out)
-      const rotationProgress = Math.max(0, Math.min(1, (latest - 0.05) / 0.9));
-      const frameIndex = Math.min(
-        Math.round(rotationProgress * (frameSources.length - 1)),
-        frameSources.length - 1
-      );
-      
-      if (frameIndex !== currentFrameRef.current && frameIndex >= 0) {
-        currentFrameRef.current = frameIndex;
-        if (rafRef.current) cancelAnimationFrame(rafRef.current);
-        rafRef.current = requestAnimationFrame(() => drawFrame(frameIndex));
+      ctx.globalAlpha = 1;
+      ctx.drawImage(a, x, y, a.width * scale, a.height * scale);
+
+      if (mix > 0 && bIndex !== aIndex) {
+        ctx.globalAlpha = mix;
+        ctx.drawImage(b, x, y, b.width * scale, b.height * scale);
+        ctx.globalAlpha = 1;
       }
-    });
 
-    requestAnimationFrame(() => drawFrame(0));
+      lastDrawnRef.current = { a: aIndex, b: bIndex, t: mix };
+    },
+    [images]
+  );
 
-    return () => {
-      unsubscribe();
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
-  }, [imagesLoaded, scrollYProgress, drawFrame]);
-
-  // Canvas resize handler
+  // Resize canvas to container with DPR scaling
   useEffect(() => {
     const handleResize = () => {
       const canvas = canvasRef.current;
       if (!canvas) return;
-      
-      const container = canvas.parentElement;
-      if (!container) return;
-      
-      const rect = container.getBoundingClientRect();
+
+      const parent = canvas.parentElement;
+      if (!parent) return;
+
+      const rect = parent.getBoundingClientRect();
       const size = Math.min(rect.width, rect.height);
       const dpr = window.devicePixelRatio || 1;
-      
-      canvas.width = size * dpr;
-      canvas.height = size * dpr;
+
+      canvas.width = Math.floor(size * dpr);
+      canvas.height = Math.floor(size * dpr);
       canvas.style.width = `${size}px`;
       canvas.style.height = `${size}px`;
-      
+
       if (imagesLoaded) {
-        requestAnimationFrame(() => drawFrame(currentFrameRef.current));
+        const { a, b, t } = lastDrawnRef.current;
+        requestAnimationFrame(() => draw(a, b, t));
       }
     };
 
-    setTimeout(handleResize, 50);
+    handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, [imagesLoaded, drawFrame]);
+  }, [imagesLoaded, draw]);
 
-  // FADE IN immediately at start (first 5% of scroll)
-  const brainOpacity = useTransform(scrollYProgress, [0, 0.05, 0.92, 1], [0, 1, 1, 0]);
-  
-  // Scale effect during rotation
-  const scale = useTransform(scrollYProgress, [0, 0.1, 0.5, 0.9, 1], [0.85, 1, 1.1, 1, 0.9]);
-  
-  // Subtle Y movement
-  const y = useTransform(scrollYProgress, [0, 0.5, 1], ['5%', '0%', '-5%']);
-  
-  // Glow intensity
-  const glowOpacity = useTransform(scrollYProgress, [0, 0.1, 0.5, 0.9, 1], [0, 0.2, 0.3, 0.2, 0]);
+  // Drive frames from smoothed scroll progress
+  useEffect(() => {
+    if (!imagesLoaded) return;
 
-  // Text reveals
-  const textOpacity1 = useTransform(scrollYProgress, [0.1, 0.2, 0.35], [0, 1, 0]);
-  const textY1 = useTransform(scrollYProgress, [0.1, 0.2, 0.35], [20, 0, -20]);
-  
-  const textOpacity2 = useTransform(scrollYProgress, [0.4, 0.5, 0.65], [0, 1, 0]);
-  const textY2 = useTransform(scrollYProgress, [0.4, 0.5, 0.65], [20, 0, -20]);
-  
-  const textOpacity3 = useTransform(scrollYProgress, [0.7, 0.8, 0.92], [0, 1, 0]);
-  const textY3 = useTransform(scrollYProgress, [0.7, 0.8, 0.92], [20, 0, -20]);
+    const start = 0.0; // begin rotating immediately when entering viewport
+    const end = 0.92; // keep rotating nearly until About arrives
+
+    const unsub = smoothProgress.on('change', (latest) => {
+      const t = clamp01((latest - start) / (end - start));
+      const exact = t * (frameSources.length - 1);
+      const a = Math.floor(exact);
+      const b = Math.min(a + 1, frameSources.length - 1);
+      const mix = exact - a;
+
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      rafRef.current = requestAnimationFrame(() => draw(a, b, mix));
+    });
+
+    // initial draw
+    requestAnimationFrame(() => draw(0, 0, 0));
+
+    return () => {
+      unsub();
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, [imagesLoaded, smoothProgress, draw]);
+
+  // Visual polish (parallax/scale) — uses smoothed progress
+  const scale = useTransform(smoothProgress, [0, 0.25, 0.6, 1], [0.98, 1.06, 1.1, 1.02]);
+  const y = useTransform(smoothProgress, [0, 1], ['3%', '-3%']);
+  const glowOpacity = useTransform(smoothProgress, [0, 0.15, 0.5, 1], [0, 0.18, 0.28, 0.18]);
+  const entryOpacity = useTransform(smoothProgress, [0, 0.08, 0.96, 1], [0, 1, 1, 0]);
+
+  // Copy reveals
+  const text1O = useTransform(smoothProgress, [0.12, 0.22, 0.34], [0, 1, 0]);
+  const text1Y = useTransform(smoothProgress, [0.12, 0.22, 0.34], [18, 0, -18]);
+
+  const text2O = useTransform(smoothProgress, [0.38, 0.5, 0.62], [0, 1, 0]);
+  const text2Y = useTransform(smoothProgress, [0.38, 0.5, 0.62], [18, 0, -18]);
+
+  const text3O = useTransform(smoothProgress, [0.66, 0.78, 0.9], [0, 1, 0]);
+  const text3Y = useTransform(smoothProgress, [0.66, 0.78, 0.9], [18, 0, -18]);
 
   return (
-    <section 
-      ref={containerRef}
-      className="relative h-[200vh]"
-    >
-      {/* Sticky container that stays in view */}
+    <section ref={containerRef} className="relative h-[220vh]">
       <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
-        {/* Background matching site theme */}
         <div className="absolute inset-0 bg-background" />
-        
-        {/* Animated glow */}
-        <motion.div 
-          style={{ opacity: glowOpacity }}
-          className="absolute w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px]"
+
+        <motion.div
+          style={{ opacity: glowOpacity, scale }}
+          className="absolute w-[520px] h-[520px] bg-primary/18 rounded-full blur-[130px]"
         />
 
-        {/* Brain canvas with fade and scale */}
-        <motion.div 
-          style={{ opacity: brainOpacity, scale, y }}
-          className="relative w-[300px] h-[300px] md:w-[450px] md:h-[450px] lg:w-[550px] lg:h-[550px] flex items-center justify-center"
+        <motion.div
+          style={{ opacity: entryOpacity, scale, y }}
+          className="relative w-[320px] h-[320px] md:w-[460px] md:h-[460px] lg:w-[560px] lg:h-[560px] flex items-center justify-center"
         >
-          <canvas 
-            ref={canvasRef}
-            className="w-full h-full"
-          />
-          
+          <canvas ref={canvasRef} className="w-full h-full" />
+
           {!imagesLoaded && (
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="w-8 h-8 border-2 border-primary/50 border-t-primary rounded-full animate-spin" />
@@ -185,9 +204,8 @@ const AIBrainRotation = () => {
           )}
         </motion.div>
 
-        {/* Text overlays */}
-        <motion.div 
-          style={{ opacity: textOpacity1, y: textY1 }}
+        <motion.div
+          style={{ opacity: text1O, y: text1Y }}
           className="absolute top-[22%] left-4 md:left-16 lg:left-28 max-w-[180px] md:max-w-xs"
         >
           <h3 className="text-lg md:text-2xl lg:text-3xl font-bold text-gradient">
@@ -198,20 +216,20 @@ const AIBrainRotation = () => {
           </p>
         </motion.div>
 
-        <motion.div 
-          style={{ opacity: textOpacity2, y: textY2 }}
+        <motion.div
+          style={{ opacity: text2O, y: text2Y }}
           className="absolute top-[22%] right-4 md:right-16 lg:right-28 max-w-[180px] md:max-w-xs text-right"
         >
           <h3 className="text-lg md:text-2xl lg:text-3xl font-bold text-gradient">
             Full-Stack
           </h3>
           <p className="text-muted-foreground mt-1.5 text-xs md:text-sm">
-            React, Python, Django & Supabase
+            React, Python, Django &amp; Cloud
           </p>
         </motion.div>
 
-        <motion.div 
-          style={{ opacity: textOpacity3, y: textY3 }}
+        <motion.div
+          style={{ opacity: text3O, y: text3Y }}
           className="absolute bottom-[18%] left-1/2 -translate-x-1/2 text-center"
         >
           <h3 className="text-lg md:text-2xl lg:text-3xl font-bold text-gradient">
