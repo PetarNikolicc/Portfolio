@@ -4,6 +4,14 @@ import ScrollReveal from './ScrollReveal';
 
 const projects = [
   {
+    title: "Glasnova.se",
+    description: "Modern webbapplikation för glasmästeri med AI-driven kundservice och online bokningssystem.",
+    image: "/placeholder.svg",
+    tags: ["React", "TypeScript", "AI", "Supabase"],
+    color: "from-cyan-500/20 to-blue-500/20",
+    link: "https://glasnova.se"
+  },
+  {
     title: "AI Chat Assistant",
     description: "En intelligent chattbot byggd med GPT-4 och RAG-teknologi för kundservice automation.",
     image: "/placeholder.svg",
@@ -11,22 +19,24 @@ const projects = [
     color: "from-blue-500/20 to-cyan-500/20"
   },
   {
-    title: "Bildanalys Platform",
-    description: "Automatisk bildklassificering och objektdetektering för e-handelsföretag.",
+    title: "Fler projekt kommer...",
+    description: "Jobbar kontinuerligt med nya spännande AI-projekt och moderna webbapplikationer.",
     image: "/placeholder.svg",
-    tags: ["TensorFlow", "Computer Vision", "AWS", "Docker"],
+    tags: ["AI", "React", "TypeScript", "Innovation"],
     color: "from-purple-500/20 to-pink-500/20"
-  },
-  {
-    title: "Prediktiv Analytics",
-    description: "ML-pipeline för försäljningsprognoser och lageroptimering i realtid.",
-    image: "/placeholder.svg",
-    tags: ["PyTorch", "Time Series", "Kubernetes", "PostgreSQL"],
-    color: "from-orange-500/20 to-red-500/20"
   }
 ];
 
-const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: number }) => {
+interface Project {
+  title: string;
+  description: string;
+  image: string;
+  tags: string[];
+  color: string;
+  link?: string;
+}
+
+const ProjectCard = ({ project, index }: { project: Project; index: number }) => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -91,16 +101,32 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: n
           </div>
 
           {/* View project link */}
-          <motion.div 
-            className="mt-6 flex items-center gap-2 text-primary opacity-0 group-hover:opacity-100 transition-opacity"
-            initial={{ x: -10 }}
-            whileHover={{ x: 0 }}
-          >
-            <span className="text-sm font-medium">Se projekt</span>
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </motion.div>
+          {project.link ? (
+            <motion.a 
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-6 flex items-center gap-2 text-primary opacity-0 group-hover:opacity-100 transition-opacity"
+              initial={{ x: -10 }}
+              whileHover={{ x: 0 }}
+            >
+              <span className="text-sm font-medium">Besök sidan</span>
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </motion.a>
+          ) : (
+            <motion.div 
+              className="mt-6 flex items-center gap-2 text-primary opacity-0 group-hover:opacity-100 transition-opacity"
+              initial={{ x: -10 }}
+              whileHover={{ x: 0 }}
+            >
+              <span className="text-sm font-medium">Se projekt</span>
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </motion.div>
+          )}
         </div>
       </motion.div>
     </motion.div>

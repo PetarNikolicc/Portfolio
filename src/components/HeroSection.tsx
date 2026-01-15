@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import profileImage from '@/assets/profile-image.png';
 
 const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -37,10 +38,27 @@ const HeroSection = () => {
           style={{ opacity, scale, y }}
           className="relative z-10 text-center px-4"
         >
+          {/* Profile Image */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 0.1 }}
+            className="mb-8"
+          >
+            <div className="relative w-40 h-40 md:w-52 md:h-52 mx-auto">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/50 to-accent/50 rounded-full blur-xl opacity-50 animate-pulse-glow" />
+              <img 
+                src={profileImage} 
+                alt="Petar Nikolic" 
+                className="relative w-full h-full object-cover rounded-full border-2 border-primary/30"
+              />
+            </div>
+          </motion.div>
+
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
             className="text-muted-foreground text-lg md:text-xl mb-4 tracking-widest uppercase"
           >
             AI Developer
@@ -50,7 +68,7 @@ const HeroSection = () => {
             style={{ y: titleY }}
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.4 }}
+            transition={{ duration: 1, delay: 0.5 }}
             className="text-5xl md:text-7xl lg:text-9xl font-bold tracking-tight mb-6"
           >
             <span className="text-gradient glow-text">Petar</span>
@@ -61,7 +79,7 @@ const HeroSection = () => {
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
+            transition={{ duration: 0.8, delay: 0.9 }}
             className="text-muted-foreground text-lg md:text-xl max-w-xl mx-auto"
           >
             Skapar intelligenta lösningar med AI och modern teknologi
@@ -70,7 +88,7 @@ const HeroSection = () => {
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 1.2 }}
+            transition={{ duration: 1, delay: 1.3 }}
             className="mt-12"
           >
             <motion.div 
