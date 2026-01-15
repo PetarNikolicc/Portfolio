@@ -3,14 +3,17 @@ import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import ScrollReveal from './ScrollReveal';
 
 const skills = [
-  { name: "Python", level: 95, category: "AI & ML" },
-  { name: "TensorFlow / PyTorch", level: 90, category: "AI & ML" },
-  { name: "Machine Learning", level: 92, category: "AI & ML" },
-  { name: "Natural Language Processing", level: 88, category: "AI & ML" },
-  { name: "React / TypeScript", level: 90, category: "Web" },
-  { name: "Node.js", level: 85, category: "Web" },
-  { name: "Cloud Services (AWS/GCP)", level: 82, category: "Infrastructure" },
-  { name: "Docker / Kubernetes", level: 80, category: "Infrastructure" },
+  { name: "Data Analysis & Feature Engineering", level: 95, category: "AI & ML" },
+  { name: "Machine Learning", level: 88, category: "AI & ML" },
+  { name: "Python", level: 88, category: "AI & ML" },
+  { name: "Django", level: 88, category: "Backend" },
+  { name: "Docker", level: 95, category: "Infrastructure" },
+  { name: "Git", level: 95, category: "Infrastructure" },
+  { name: "REST API Development", level: 88, category: "Backend" },
+  { name: "HTML & CSS", level: 95, category: "Web" },
+  { name: "JavaScript", level: 88, category: "Web" },
+  { name: "React", level: 78, category: "Web" },
+  { name: "PostgreSQL", level: 78, category: "Backend" },
 ];
 
 const SkillBar = ({ name, level, index }: { name: string; level: number; index: number }) => {
@@ -89,7 +92,7 @@ const SkillsSection = () => {
         {/* Tech icons floating */}
         <ScrollReveal className="mt-20">
           <div className="flex flex-wrap justify-center gap-6">
-            {['Python', 'React', 'TensorFlow', 'AWS', 'Docker', 'Node.js'].map((tech, i) => (
+            {['Python', 'React', 'Django', 'Docker', 'PostgreSQL', 'Machine Learning'].map((tech, i) => (
               <motion.div
                 key={tech}
                 className="glass px-6 py-3 rounded-full text-muted-foreground hover:text-foreground hover:border-primary/30 transition-colors cursor-default"

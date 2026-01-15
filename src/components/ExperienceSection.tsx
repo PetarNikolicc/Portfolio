@@ -4,32 +4,32 @@ import ScrollReveal from './ScrollReveal';
 
 const experiences = [
   {
-    year: "2023 - Nu",
-    title: "Senior AI Developer",
-    company: "Tech Innovations AB",
-    description: "Leder utvecklingen av AI-drivna produkter och implementerar ML-modeller i produktion.",
-    technologies: ["Python", "TensorFlow", "AWS", "Kubernetes"]
+    year: "10/2025 - Nu",
+    title: "Fullstack Developer",
+    company: "Glasnova",
+    description: "Utvecklade och ansvarade för hela Glasnovas webbplattform med kundvänd webbapplikation och internt adminsystem. Byggde frontend i React/TypeScript och backend med Supabase/PostgreSQL. Implementerade Stripe-betalning, roll- och behörighetsstyrning.",
+    technologies: ["React", "TypeScript", "Supabase", "PostgreSQL", "Stripe"]
   },
   {
-    year: "2021 - 2023",
-    title: "Machine Learning Engineer",
-    company: "DataMind Solutions",
-    description: "Byggde och optimerade NLP-modeller för textanalys och automatisering.",
-    technologies: ["PyTorch", "NLP", "Docker", "GCP"]
+    year: "07/2025 - 10/2025",
+    title: "Fullstack Developer",
+    company: "Röntgendirekt AB",
+    description: "Utvecklade den kundvända webbapplikationen end-to-end med fokus på användarflöden, prestanda och driftsäkerhet. Frontend i React, backend med Flask och Firebase för datalagring.",
+    technologies: ["React", "Flask", "Firebase", "Docker", "Nginx"]
   },
   {
-    year: "2019 - 2021",
-    title: "Full-stack Developer",
-    company: "WebCraft Studio",
-    description: "Utvecklade moderna webbapplikationer med React och Node.js.",
-    technologies: ["React", "Node.js", "TypeScript", "PostgreSQL"]
+    year: "02/2025 - 05/2025",
+    title: "Python / Machine Learning Developer",
+    company: "Consid AB",
+    description: "Utvecklade ML-applikation för att förutse materialegenskaper baserat på historisk produktionsdata. Implementerade Random Forest-modeller och byggde Flask-baserat API för prediktioner.",
+    technologies: ["Python", "Machine Learning", "Flask", "Random Forest", "API"]
   },
   {
-    year: "2018 - 2019",
-    title: "Junior Developer",
-    company: "StartUp Hub",
-    description: "Startade karriären med att bygga prototyper och lära mig agila metoder.",
-    technologies: ["JavaScript", "Python", "Git", "Scrum"]
+    year: "11/2024 - 02/2025",
+    title: "Backend / Data Engineer",
+    company: "EDTools AB - mappi.ai",
+    description: "Arbetade på AI-baserad produkt med fokus på backend- och datainfrastruktur. Designade databasstruktur och REST-API i Django för användar- och organisationshantering.",
+    technologies: ["Django", "Python", "REST API", "PostgreSQL"]
   }
 ];
 

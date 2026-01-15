@@ -7,10 +7,9 @@ const ContactSection = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   const socialLinks = [
-    { name: "GitHub", href: "#", icon: "G" },
-    { name: "LinkedIn", href: "#", icon: "in" },
-    { name: "Twitter", href: "#", icon: "X" },
-    { name: "Email", href: "mailto:petar@example.com", icon: "@" },
+    { name: "LinkedIn", href: "https://www.linkedin.com/in/petar-nikolic", icon: "in" },
+    { name: "Email", href: "mailto:petar-nikolic@outlook.com", icon: "@" },
+    { name: "Phone", href: "tel:+46733943233", icon: "☎" },
   ];
 
   return (
@@ -41,7 +40,7 @@ const ContactSection = () => {
 
         <ScrollReveal>
           <motion.a
-            href="mailto:petar@example.com"
+            href="mailto:petar-nikolic@outlook.com"
             className="inline-block mt-12 px-8 py-4 text-lg font-medium rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors glow"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
@@ -74,7 +73,7 @@ const ContactSection = () => {
           transition={{ delay: 0.8 }}
           className="mt-20 text-muted-foreground text-sm"
         >
-          © 2024 Petar Nikolic. Byggd med passion och AI.
+          © 2025 Petar Nikolic. Byggd med passion och AI.
         </motion.p>
       </div>
     </section>

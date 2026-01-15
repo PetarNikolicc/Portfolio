@@ -35,11 +35,12 @@ const AboutSection = () => {
         <ScrollReveal>
           <div className="max-w-3xl mx-auto mt-16">
             <p className="text-xl md:text-2xl lg:text-3xl text-muted-foreground leading-relaxed text-center">
-              Jag är en passionerad{' '}
+              Utbildad{' '}
               <span className="text-foreground font-medium">AI-utvecklare</span>{' '}
-              med fokus på att bygga innovativa lösningar som kombinerar 
-              <span className="text-foreground font-medium"> maskininlärning</span> med 
-              modern webbutveckling.
+              med stark bakgrund inom fullstack-utveckling och praktisk{' '}
+              <span className="text-foreground font-medium">maskininlärning</span>. 
+              Har byggt och driftsatt kompletta webb- och AI-lösningar end-to-end i produktionsmiljö, 
+              från datamodellering och backend-arkitektur till användargränssnitt och affärskritiska flöden.
             </p>
           </div>
         </ScrollReveal>
@@ -47,19 +48,19 @@ const AboutSection = () => {
         <div className="grid md:grid-cols-3 gap-8 mt-20">
           {[
             {
-              number: "5+",
-              label: "Års erfarenhet",
-              description: "Inom AI och mjukvaruutveckling"
+              number: "4",
+              label: "Språk",
+              description: "Svenska, Engelska, Spanska, Serbiska"
             },
             {
-              number: "20+",
-              label: "Projekt",
-              description: "Framgångsrikt levererade"
+              number: "4+",
+              label: "Kundprojekt",
+              description: "Framgångsrikt levererade i produktion"
             },
             {
               number: "100%",
-              label: "Engagemang",
-              description: "I varje projekt jag tar mig an"
+              label: "End-to-end",
+              description: "Från idé till driftsättning"
             }
           ].map((stat, index) => (
             <ScrollReveal key={index}>
