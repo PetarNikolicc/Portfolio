@@ -38,7 +38,7 @@ const ContactSection = () => {
             <span className="text-gradient">Låt oss prata</span>
           </h2>
           <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto mt-4">
-            Jag är inte bara AI – jag finns här för dig.
+            Oavsett om du behöver hjälp med webbutveckling, AI-lösningar eller strategisk rådgivning – jag finns här för att hjälpa dig framåt.
           </p>
         </ScrollReveal>
 
