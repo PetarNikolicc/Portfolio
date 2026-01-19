@@ -9,7 +9,7 @@ const ContactSection = () => {
   });
   const socialLinks = [{
     name: "LinkedIn",
-    href: "https://www.linkedin.com/in/petar-nikolic",
+    href: "https://www.linkedin.com/in/petarnikolic/",
     icon: "in"
   }, {
     name: "Email",
