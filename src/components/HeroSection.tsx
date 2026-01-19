@@ -7,13 +7,14 @@ const HeroSection = () => {
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end start"]
+    offset: ["start start", "end start"],
   });
 
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.8]);
-  const y = useTransform(scrollYProgress, [0, 0.5], [0, -100]);
-  const titleY = useTransform(scrollYProgress, [0, 0.3], [0, -50]);
+  // Keep hero visible until the very end of the scroll to avoid a "blank" gap
+  const opacity = useTransform(scrollYProgress, [0, 0.85, 1], [1, 1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.85, 1], [1, 1, 0.95]);
+  const y = useTransform(scrollYProgress, [0, 0.85, 1], [0, 0, -80]);
+  const titleY = useTransform(scrollYProgress, [0, 0.85, 1], [0, 0, -40]);
 
   return (
     <section 

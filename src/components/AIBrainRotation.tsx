@@ -43,10 +43,10 @@ const AIBrainRotation = () => {
   const rafRef = useRef<number | null>(null);
   const lastDrawnRef = useRef({ a: 0, b: 0, t: 0 });
 
-  // Start progress as soon as this section ENTERS the viewport (right after hero)
+  // Progress should start when this section hits the top of the viewport (so it doesn't "advance" off-screen)
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ['start end', 'end start'],
+    offset: ['start start', 'end start'],
   });
 
   // Smooth the scroll progress (reduces fast/jittery jumps)
@@ -142,8 +142,8 @@ const AIBrainRotation = () => {
   useEffect(() => {
     if (!imagesLoaded) return;
 
-    const start = 0.0; // begin rotating immediately when entering viewport
-    const end = 0.92; // keep rotating nearly until About arrives
+    const start = 0.02; // start rotation right as the sticky scene begins
+    const end = 0.98; // keep rotating almost until About takes over
 
     const unsub = smoothProgress.on('change', (latest) => {
       const t = clamp01((latest - start) / (end - start));
@@ -169,7 +169,9 @@ const AIBrainRotation = () => {
   const scale = useTransform(smoothProgress, [0, 0.25, 0.6, 1], [0.98, 1.06, 1.1, 1.02]);
   const y = useTransform(smoothProgress, [0, 1], ['3%', '-3%']);
   const glowOpacity = useTransform(smoothProgress, [0, 0.15, 0.5, 1], [0, 0.18, 0.28, 0.18]);
-  const entryOpacity = useTransform(smoothProgress, [0, 0.08, 0.96, 1], [0, 1, 1, 0]);
+
+  // Fade-in immediately when the brain section enters, fade-out only at the very end
+  const entryOpacity = useTransform(smoothProgress, [0, 0.005, 0.995, 1], [0, 1, 1, 0]);
 
   // Copy reveals
   const text1O = useTransform(smoothProgress, [0.12, 0.22, 0.34], [0, 1, 0]);
