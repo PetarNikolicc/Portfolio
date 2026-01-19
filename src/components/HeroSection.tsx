@@ -83,7 +83,7 @@ const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.9 }}
             className="text-muted-foreground text-lg md:text-xl max-w-xl mx-auto"
           >
-            Skapar intelligenta lösningar med AI och modern teknologi
+            Webbutvecklare · AI-specialist · Solutions Architect
           </motion.p>
 
           <motion.div 
