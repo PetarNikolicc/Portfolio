@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <meta name="theme-color" content="#c47459" />
+    
+    <!-- Primary Meta Tags - Optimized for PDLC, Smart Film, Smart Glas -->
+    <title>PDLC Smart Film | Köp Smart Glas & Smartfilm Sverige | GlasNova #1</title>
+    <meta name="title" content="PDLC Smart Film | Köp Smart Glas & Smartfilm Sverige | GlasNova #1" />
+    <meta name="description" content="Sveriges #1 leverantör av PDLC smart film och smart glas. Köp smartfilm från 2795 kr/m². Switchbar glasfilm med 0.1 sek växling. CE-certifierad. Gratis konsultation. Installation hela Sverige." />
+    <meta name="keywords" content="PDLC, smart film, smart glas, smartfilm, PDLC film, smart glass, switchbar film, switchable glass, elektrokromt glas, electrochromic glass, privacy glass, integritetsglas, dimbara fönster, smart window film, PDLC Sverige, smart film Sverige, köp smartfilm, polymer dispersed liquid crystal, självhäftande smartfilm, glasfilm, privacy film, switchbar glasfilm, PDLC teknologi, smart glas pris, smartfilm pris, PDLC installation" />
+    <meta name="author" content="Petar Nikolic - GlasNova AB" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="bingbot" content="index, follow" />
+    <link rel="canonical" href="https://www.glasnova.se/" />
+
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="//widget.trustpilot.com" />
+
+    <!-- Alternate Languages for European Markets -->
+    <link rel="alternate" hreflang="sv" href="https://www.glasnova.se/" />
+    <link rel="alternate" hreflang="en" href="https://www.glasnova.se/en/" />
+    <link rel="alternate" hreflang="de" href="https://www.glasnova.se/de/" />
+    <link rel="alternate" hreflang="fr" href="https://www.glasnova.se/fr/" />
+    <link rel="alternate" hreflang="no" href="https://www.glasnova.se/no/" />
+    <link rel="alternate" hreflang="da" href="https://www.glasnova.se/da/" />
+    <link rel="alternate" hreflang="fi" href="https://www.glasnova.se/fi/" />
+    <link rel="alternate" hreflang="x-default" href="https://www.glasnova.se/en/" />
+    
+    <!-- Open Graph / Facebook / LinkedIn -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.glasnova.se/" />
+    <meta property="og:title" content="PDLC Smart Film & Smart Glas | Sveriges #1 Smartfilm Leverantör" />
+    <meta property="og:description" content="Köp PDLC smart film och smart glas från Sveriges ledande leverantör. Switchbar glasfilm från 2795 kr/m². Gratis konsultation. CE-certifierad kvalitet." />
+    <meta property="og:image" content="https://www.glasnova.se/hero-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="PDLC Smart Film - Switchbar glasfilm för integritet på begäran" />
+    <meta property="og:locale" content="sv_SE" />
+    <meta property="og:locale:alternate" content="en_GB" />
+    <meta property="og:locale:alternate" content="de_DE" />
+    <meta property="og:locale:alternate" content="fr_FR" />
+    <meta property="og:locale:alternate" content="nb_NO" />
+    <meta property="og:locale:alternate" content="da_DK" />
+    <meta property="og:locale:alternate" content="fi_FI" />
+    <meta property="og:site_name" content="GlasNova - PDLC Smart Film & Smart Glas" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="PDLC Smart Film & Smart Glas | GlasNova Sverige" />
+    <meta name="twitter:description" content="Sveriges #1 för PDLC smart film och smart glas. Switchbar glasfilm från 2795 kr/m². Gratis konsultation." />
+    <meta name="twitter:image" content="https://www.glasnova.se/hero-image.jpg" />
+    <meta name="twitter:image:alt" content="PDLC Smart Film Technology" />
+    
+    <!-- Business & Contact Info for Local SEO -->
+    <meta name="contact" content="info@glasnova.se" />
+    <meta name="geo.region" content="SE-AB" />
+    <meta name="geo.placename" content="Stockholm, Sweden" />
+    <meta name="geo.position" content="59.3293;18.0686" />
+    <meta name="ICBM" content="59.3293, 18.0686" />
+    
+    <!-- Additional SEO Signals -->
+    <meta name="coverage" content="Europe, Scandinavia, Nordic" />
+    <meta name="distribution" content="global" />
+    <meta name="rating" content="general" />
+    <meta name="revisit-after" content="3 days" />
+    <meta name="copyright" content="GlasNova AB" />
+    <meta name="reply-to" content="info@glasnova.se" />
+    <meta name="category" content="Smart Glass, PDLC Film, Privacy Glass, Building Materials" />
+    <meta name="classification" content="Business, Technology, Construction" />
+    <meta name="subject" content="PDLC Smart Film and Smart Glass Solutions" />
+    <meta name="topic" content="Smart Film, Smart Glass, PDLC Technology, Privacy Solutions" />
+    <meta name="summary" content="GlasNova - Sveriges ledande leverantör av PDLC smart film och smart glas. Switchbar glasfilm för omedelbar integritetskontroll." />
+    
+    <!-- Verification Tags (add your codes when available) -->
+    <!-- <meta name="google-site-verification" content="YOUR_CODE" /> -->
+    <!-- <meta name="msvalidate.01" content="YOUR_BING_CODE" /> -->
+    <!-- <meta name="yandex-verification" content="YOUR_YANDEX_CODE" /> -->
+    
+    <!-- Structured Data - Organization -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "@id": "https://www.glasnova.se/#organization",
+      "name": "GlasNova",
+      "alternateName": ["GlasNova AB", "GlasNova Sverige", "GlasNova Smart Film"],
+      "url": "https://www.glasnova.se",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.glasnova.se/logo-glasnova-large.png",
+        "width": 500,
+        "height": 500
+      },
+      "image": "https://www.glasnova.se/hero-image.jpg",
+      "description": "Sveriges ledande leverantör av PDLC smart film och smart glas. Premium kvalitet, professionell installation.",
+      "telephone": "+46-73-394-32-33",
+      "email": "info@glasnova.se",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "SE",
+        "addressRegion": "Stockholm",
+        "addressLocality": "Stockholm"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "59.3293",
+        "longitude": "18.0686"
+      },
+      "areaServed": [
+        {"@type": "Country", "name": "Sweden"},
+        {"@type": "Country", "name": "Norway"},
+        {"@type": "Country", "name": "Denmark"},
+        {"@type": "Country", "name": "Finland"}
+      ],
+      "knowsAbout": ["PDLC", "Smart Film", "Smart Glass", "Switchable Glass", "Privacy Glass", "Electrochromic Glass"],
+      "slogan": "Sveriges #1 för PDLC Smart Film",
+      "foundingDate": "2020",
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "telephone": "+46-73-394-32-33",
+          "contactType": "customer service",
+          "email": "info@glasnova.se",
+          "areaServed": ["SE", "NO", "DK", "FI"],
+          "availableLanguage": ["Swedish", "English"],
+          "contactOption": "TollFree"
+        },
+        {
+          "@type": "ContactPoint",
+          "telephone": "+46-73-394-32-33",
+          "contactType": "sales",
+          "email": "info@glasnova.se",
+          "areaServed": ["SE", "NO", "DK", "FI"],
+          "availableLanguage": ["Swedish", "English"]
+        }
+      ],
+      "sameAs": []
+    }
+    </script>
+    
+    <!-- Structured Data - WebSite with SearchAction -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": "https://www.glasnova.se/#website",
+      "name": "GlasNova - PDLC Smart Film & Smart Glas",
+      "alternateName": "GlasNova",
+      "url": "https://www.glasnova.se",
+      "description": "Sveriges ledande leverantör av PDLC smart film, smart glas och switchbar glasfilm",
+      "inLanguage": ["sv-SE", "en"],
+      "publisher": {
+        "@id": "https://www.glasnova.se/#organization"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://www.glasnova.se/products?search={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+    
+    <!-- Structured Data - LocalBusiness -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "@id": "https://www.glasnova.se/#localbusiness",
+      "name": "GlasNova",
+      "image": "https://www.glasnova.se/hero-image.jpg",
+      "priceRange": "2795-87250 SEK",
+      "telephone": "+46-73-394-32-33",
+      "email": "info@glasnova.se",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "SE",
+        "addressLocality": "Stockholm"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "59.3293",
+        "longitude": "18.0686"
+      },
+      "url": "https://www.glasnova.se",
+      "paymentAccepted": ["Cash", "Credit Card", "Klarna", "Bank Transfer"],
+      "currenciesAccepted": "SEK, EUR",
+      "openingHours": "Mo-Fr 09:00-17:00",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "PDLC Smart Film Produkter",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "PDLC Smart Film",
+              "description": "Självhäftande switchbar glasfilm"
+            }
+          }
+        ]
+      }
+    }
+    </script>
+    
+    <!-- Structured Data - Main Product -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "@id": "https://www.glasnova.se/products/smartglasfilm#product",
+      "name": "PDLC Smart Film - Självhäftande Switchbar Glasfilm",
+      "alternateName": ["PDLC Smartfilm", "Smart Glas Film", "Switchbar Film", "Privacy Film"],
+      "description": "Premium PDLC smart film med Polymer Dispersed Liquid Crystal teknologi. Självhäftande switchbar glasfilm som växlar mellan transparent och frostat på 0.1 sekunder. CE-certifierad kvalitet.",
+      "image": [
+        "https://www.glasnova.se/smartglasfilm-hero.jpg",
+        "https://www.glasnova.se/demo-transparent.jpg",
+        "https://www.glasnova.se/demo-frosted.jpg"
+      ],
+      "brand": {
+        "@type": "Brand",
+        "name": "GlasNova"
+      },
+      "manufacturer": {
+        "@type": "Organization",
+        "name": "GlasNova"
+      },
+      "sku": "PDLC-SMARTFILM-VIT",
+      "mpn": "GN-PDLC-001",
+      "category": "Smart Glass Film",
+      "material": "Polymer Dispersed Liquid Crystal (PDLC)",
+      "offers": {
+        "@type": "Offer",
+        "url": "https://www.glasnova.se/products/smartglasfilm",
+        "priceCurrency": "SEK",
+        "price": "2795",
+        "priceValidUntil": "2026-12-31",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": "2795",
+          "priceCurrency": "SEK",
+          "unitText": "per kvadratmeter",
+          "referenceQuantity": {
+            "@type": "QuantitativeValue",
+            "value": "1",
+            "unitCode": "MTK"
+          }
+        },
+        "availability": "https://schema.org/InStock",
+        "availableDeliveryMethod": "https://schema.org/DeliveryModeFreight",
+        "deliveryLeadTime": {
+          "@type": "QuantitativeValue",
+          "minValue": "14",
+          "maxValue": "28",
+          "unitCode": "DAY"
+        },
+        "seller": {
+          "@id": "https://www.glasnova.se/#organization"
+        },
+        "itemCondition": "https://schema.org/NewCondition",
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingDestination": {
+            "@type": "DefinedRegion",
+            "addressCountry": "SE"
+          },
+          "deliveryTime": {
+            "@type": "ShippingDeliveryTime",
+            "handlingTime": {
+              "@type": "QuantitativeValue",
+              "minValue": "1",
+              "maxValue": "3",
+              "unitCode": "DAY"
+            },
+            "transitTime": {
+              "@type": "QuantitativeValue",
+              "minValue": "14",
+              "maxValue": "21",
+              "unitCode": "DAY"
+            }
+          }
+        }
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "52",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "review": [
+        {
+          "@type": "Review",
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "5",
+            "bestRating": "5"
+          },
+          "author": {
+            "@type": "Person",
+            "name": "Johan K."
+          },
+          "reviewBody": "Perfekt PDLC smart film för vårt konferensrum. Professionell installation och enastående kvalitet."
+        }
+      ],
+      "additionalProperty": [
+        {
+          "@type": "PropertyValue",
+          "name": "Växlingstid",
+          "value": "< 0.1 sekunder"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Ljusgenomsläpp (transparent)",
+          "value": "85%"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Ljusgenomsläpp (frostat)",
+          "value": "55%"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Max bredd",
+          "value": "1800mm"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Driftspänning",
+          "value": "60V AC"
+        }
+      ]
+    }
+    </script>
+    
+    <!-- Trustpilot Widget Script -->
+    <script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
+    <!-- End Trustpilot Widget Script -->
+    <script type="module" crossorigin src="/assets/index-DkhGM0W2.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BMjlYJ9b.css">
+  <script defer src="https://glasnova.se/~flock.js" data-proxy-url="https://glasnova.se/~api/analytics"></script></head>
+
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

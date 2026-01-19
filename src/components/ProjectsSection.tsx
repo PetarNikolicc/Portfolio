@@ -1,12 +1,13 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import ScrollReveal from './ScrollReveal';
+import glasnovaScreenshot from '@/assets/glasnova-screenshot.png';
 
 const projects = [
   {
     title: "Glasnova.se",
     description: "Modern webbapplikation för glasmästeri med AI-driven kundservice och online bokningssystem.",
-    image: "/placeholder.svg",
+    image: glasnovaScreenshot,
     tags: ["React", "TypeScript", "AI", "Supabase"],
     color: "from-cyan-500/20 to-blue-500/20",
     link: "https://glasnova.se"
@@ -59,19 +60,27 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
         {/* Image container with parallax */}
         <div className="relative h-64 overflow-hidden">
           <motion.div
-            className="absolute inset-0 bg-secondary"
+            className="absolute inset-0"
             whileHover={{ scale: 1.1 }}
             transition={{ duration: 0.6 }}
           >
-            <div className="w-full h-full flex items-center justify-center">
-              <motion.div
-                initial={{ opacity: 0.5 }}
-                whileHover={{ opacity: 1 }}
-                className="text-6xl text-muted-foreground/30"
-              >
-                ⚡
-              </motion.div>
-            </div>
+            {project.image && project.image !== "/placeholder.svg" ? (
+              <img 
+                src={project.image} 
+                alt={project.title}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="w-full h-full bg-secondary flex items-center justify-center">
+                <motion.div
+                  initial={{ opacity: 0.5 }}
+                  whileHover={{ opacity: 1 }}
+                  className="text-6xl text-muted-foreground/30"
+                >
+                  ⚡
+                </motion.div>
+              </div>
+            )}
           </motion.div>
           
           {/* Shine effect on hover */}
