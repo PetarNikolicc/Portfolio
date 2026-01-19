@@ -55,7 +55,7 @@ const ContactSection = () => {
 
         <ScrollReveal className="mt-16">
           <div className="flex justify-center gap-6">
-            {socialLinks.map((link, index) => <motion.a key={link.name} href={link.href} className="w-12 h-12 flex items-center justify-center glass rounded-full text-muted-foreground hover:text-foreground hover:border-primary/30 transition-all" whileHover={{
+            {socialLinks.map((link, index) => <motion.a key={link.name} href={link.href} target="_blank" rel="noopener noreferrer" className="w-12 h-12 flex items-center justify-center glass rounded-full text-muted-foreground hover:text-foreground hover:border-primary/30 transition-all" whileHover={{
             scale: 1.1,
             y: -5
           }} initial={{
