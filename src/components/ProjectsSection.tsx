@@ -1,13 +1,13 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import ScrollReveal from './ScrollReveal';
-import glasnovaScreenshot from '@/assets/glasnova-screenshot.png';
+import glasnovaPreview from '@/assets/glasnova-preview.jpg';
 
 const projects = [
   {
     title: "Glasnova.se",
     description: "Modern webbapplikation för glasmästeri med AI-driven kundservice och online bokningssystem.",
-    image: glasnovaScreenshot,
+    image: glasnovaPreview,
     tags: ["React", "TypeScript", "AI", "Supabase"],
     color: "from-cyan-500/20 to-blue-500/20",
     link: "https://glasnova.se"
@@ -64,23 +64,30 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
             whileHover={{ scale: 1.1 }}
             transition={{ duration: 0.6 }}
           >
+            {/* Fallback (shows if image fails or is placeholder) */}
+            <div className="w-full h-full bg-secondary flex items-center justify-center">
+              <motion.div
+                initial={{ opacity: 0.5 }}
+                whileHover={{ opacity: 1 }}
+                className="text-6xl text-muted-foreground/30"
+              >
+                ⚡
+              </motion.div>
+            </div>
+
             {project.image && project.image !== "/placeholder.svg" ? (
-              <img 
-                src={project.image} 
-                alt={project.title}
-                className="w-full h-full object-cover"
+              <img
+                src={project.image}
+                alt={`Förhandsvisning av ${project.title}`}
+                className="absolute inset-0 w-full h-full object-cover"
+                loading="lazy"
+                decoding="async"
+                onError={(e) => {
+                  // Hide broken image and keep fallback visible
+                  e.currentTarget.style.display = 'none';
+                }}
               />
-            ) : (
-              <div className="w-full h-full bg-secondary flex items-center justify-center">
-                <motion.div
-                  initial={{ opacity: 0.5 }}
-                  whileHover={{ opacity: 1 }}
-                  className="text-6xl text-muted-foreground/30"
-                >
-                  ⚡
-                </motion.div>
-              </div>
-            )}
+            ) : null}
           </motion.div>
           
           {/* Shine effect on hover */}
@@ -115,8 +122,7 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 flex items-center gap-2 text-primary opacity-0 group-hover:opacity-100 transition-opacity"
-              initial={{ x: -10 }}
+              className="mt-6 flex items-center gap-2 text-primary opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity"
               whileHover={{ x: 0 }}
             >
               <span className="text-sm font-medium">Besök sidan</span>
@@ -126,7 +132,7 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
             </motion.a>
           ) : (
             <motion.div 
-              className="mt-6 flex items-center gap-2 text-primary opacity-0 group-hover:opacity-100 transition-opacity"
+              className="mt-6 flex items-center gap-2 text-primary opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity"
               initial={{ x: -10 }}
               whileHover={{ x: 0 }}
             >
