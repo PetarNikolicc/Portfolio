@@ -38,8 +38,7 @@ const ContactSection = () => {
             <span className="text-gradient">Låt oss prata</span>
           </h2>
           <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto mt-4">
-            Har du ett spännande projekt eller vill diskutera AI-möjligheter? 
-            Jag finns här.
+            Jag är inte bara AI – jag finns här för dig.
           </p>
         </ScrollReveal>
 
