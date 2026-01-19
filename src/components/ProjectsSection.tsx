@@ -181,7 +181,7 @@ const ProjectsSection = () => {
             <span className="text-gradient">Projekt</span>
           </h2>
           <p className="text-muted-foreground text-center text-lg max-w-2xl mx-auto mt-4">
-            Utvalda projekt som visar min expertis inom AI och utveckling
+            Moderna webbapplikationer och digitala lösningar jag har byggt
           </p>
         </ScrollReveal>
 
