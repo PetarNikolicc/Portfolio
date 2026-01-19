@@ -1,6 +1,6 @@
 import Navigation from '@/components/Navigation';
 import HeroSection from '@/components/HeroSection';
-
+import StarfieldBackground from '@/components/StarfieldBackground';
 import AboutSection from '@/components/AboutSection';
 import SkillsSection from '@/components/SkillsSection';
 import ExperienceSection from '@/components/ExperienceSection';
@@ -10,6 +10,7 @@ import ContactSection from '@/components/ContactSection';
 const Index = () => {
   return (
     <div className="relative bg-background text-foreground overflow-x-hidden">
+      <StarfieldBackground />
       <Navigation />
       
       <main>

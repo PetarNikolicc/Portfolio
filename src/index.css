@@ -128,3 +128,42 @@
     @apply py-24 md:py-32 lg:py-40;
   }
 }
+
+/* Twinkle animations for starfield */
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes twinkle-bright {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  25% {
+    opacity: 1;
+    transform: scale(1.4);
+  }
+  50% {
+    opacity: 0.1;
+    transform: scale(0.8);
+  }
+  75% {
+    opacity: 0.9;
+    transform: scale(1.3);
+  }
+}
+
+.animate-twinkle {
+  animation: twinkle ease-in-out infinite;
+}
+
+.animate-twinkle-bright {
+  animation: twinkle-bright ease-in-out infinite;
+}
