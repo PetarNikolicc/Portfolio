@@ -1,6 +1,6 @@
 import Navigation from '@/components/Navigation';
 import HeroSection from '@/components/HeroSection';
-import AIBrainRotation from '@/components/AIBrainRotation';
+
 import AboutSection from '@/components/AboutSection';
 import SkillsSection from '@/components/SkillsSection';
 import ExperienceSection from '@/components/ExperienceSection';
@@ -14,8 +14,6 @@ const Index = () => {
       
       <main>
         <HeroSection />
-        
-        <AIBrainRotation />
         
         <div id="about">
           <AboutSection />
