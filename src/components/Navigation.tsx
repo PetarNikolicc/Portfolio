@@ -42,10 +42,10 @@ const Navigation = () => {
         <div className="container max-w-6xl mx-auto px-4 flex items-center justify-between">
           <motion.a 
             href="#"
-            className="text-xl font-bold text-gradient"
+            className="text-lg font-bold text-gradient"
             whileHover={{ scale: 1.05 }}
           >
-            PN
+            Petar Nikolic
           </motion.a>
 
           {/* Desktop nav */}
