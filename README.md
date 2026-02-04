@@ -46,34 +46,6 @@ The application will be available at `http://localhost:8080`
 5. Vercel will auto-detect Vite and configure build settings
 6. Click "Deploy"
 
-### Deploy to Netlify
-
-1. Build the project:
-   ```bash
-   npm run build
-   ```
-2. Go to [Netlify](https://netlify.com)
-3. Drag and drop the `dist` folder to deploy
-4. Or connect your GitHub repo for automatic deployments
-
-### Deploy to GitHub Pages
-
-1. Install gh-pages:
-   ```bash
-   npm install --save-dev gh-pages
-   ```
-2. Add to `package.json`:
-   ```json
-   "homepage": "https://PetarNikolicc.github.io/petar-s-portfolio",
-   "scripts": {
-     "predeploy": "npm run build",
-     "deploy": "gh-pages -d dist"
-   }
-   ```
-3. Deploy:
-   ```bash
-   npm run deploy
-   ```
 
 ## Build
 
